@@ -1,0 +1,150 @@
+/* ==========================================================================
+   BIOCHEM TECHNOLOGIES — product.css  (Product details page)
+   ========================================================================== */
+
+/* ---------- Product hero ---------- */
+.phero {
+  position: relative; overflow: hidden;
+  padding: calc(var(--nav-h) + var(--s-10)) 0 var(--s-10);
+  border-bottom: 1px solid var(--divider);
+}
+.phero .breadcrumb { margin-bottom: var(--s-6); }
+.phero__grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--s-10); align-items: center; position: relative; }
+.phero__badges { display: flex; gap: var(--s-2); flex-wrap: wrap; margin-bottom: var(--s-4); }
+.phero__code { display: inline-flex; align-items: center; gap: 8px; margin-bottom: var(--s-3); }
+.phero h1 { font-size: clamp(36px, 3.6vw, 54px); margin-bottom: var(--s-4); }
+.phero .subtitle { margin-bottom: var(--s-7); }
+.phero__actions { display: flex; gap: var(--s-3); flex-wrap: wrap; }
+.phero__visual {
+  position: relative; aspect-ratio: 1; border-radius: var(--r-2xl); overflow: hidden;
+  border: 1px solid var(--border-glass);
+  background:
+    radial-gradient(80% 60% at 65% 25%, rgba(47,123,245,.2), transparent 60%),
+    radial-gradient(50% 50% at 20% 85%, rgba(55,200,245,.1), transparent 60%),
+    linear-gradient(165deg, #0D1728, #070C16 70%);
+  box-shadow: var(--sh-glass);
+}
+.phero__visual svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.phero__visual .drop { animation: drop-fall 3.4s ease-in infinite; }
+@keyframes drop-fall {
+  0% { transform: translateY(0); opacity: 0; }
+  15% { opacity: 1; }
+  70% { transform: translateY(56px); opacity: 1; }
+  100% { transform: translateY(64px); opacity: 0; }
+}
+
+/* ---------- Two-column layout ---------- */
+.pdetail { display: grid; grid-template-columns: 1fr 300px; gap: var(--s-10); align-items: start; padding-block: var(--s-11); }
+.pdetail__main > section { margin-bottom: var(--s-11); scroll-margin-top: 120px; }
+.pdetail__main h2 { font-size: clamp(26px, 2.2vw, 34px); }
+
+/* ---------- Sidebar ---------- */
+.psidebar { position: sticky; top: calc(var(--nav-h) + var(--s-5)); display: flex; flex-direction: column; gap: var(--s-5); }
+.psidebar__nav { padding: var(--s-5); }
+.psidebar__nav h6 {
+  font-family: var(--font-head); font-size: 12px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--text-3); margin-bottom: var(--s-3);
+}
+.psidebar__nav ul { list-style: none; padding: 0; margin: 0; }
+.psidebar__nav a {
+  display: block; padding: 8px 12px; border-left: 2px solid transparent;
+  font-size: 13.5px; color: var(--text-3); border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  transition: all var(--t-micro) var(--ease-std);
+}
+.psidebar__nav a:hover { color: var(--text-1); background: var(--hover-tint); }
+.psidebar__nav a.is-active { color: var(--blue-300); border-left-color: var(--glow); background: var(--hover-tint); }
+.psidebar__box { padding: var(--s-5); display: flex; flex-direction: column; gap: var(--s-3); }
+.psidebar__box .btn { width: 100%; }
+.psidebar__utils { display: flex; gap: var(--s-2); }
+.psidebar__utils .btn { flex: 1; }
+
+/* ---------- Benefits ---------- */
+.benefit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-4); }
+.benefit-card { padding: var(--s-5); text-align: left; }
+.benefit-card h5 { font-size: 14.5px; margin: var(--s-3) 0 var(--s-1); }
+.benefit-card p { font-size: 12.5px; color: var(--text-3); line-height: 1.55; }
+.benefit-card .icon-box { width: 40px; height: 40px; }
+.benefit-card .icon-box svg { width: 19px; height: 19px; }
+
+/* ---------- Specs ---------- */
+.spec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3); }
+.spec-item {
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-4);
+  padding: 14px 18px;
+  background: var(--surface-card); border: 1px solid var(--border); border-radius: var(--r-md);
+}
+.spec-item dt { font-size: 13px; color: var(--text-3); letter-spacing: .02em; }
+.spec-item dd { margin: 0; font-family: var(--font-num); font-weight: 600; font-size: 14.5px; color: var(--text-1); text-align: right; }
+
+/* ---------- Process flow ---------- */
+.flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-4); }
+.flow-card { padding: var(--s-5); position: relative; }
+.flow-card__step {
+  font-family: var(--font-num); font-weight: 700; font-size: 12px; letter-spacing: .1em;
+  color: var(--glow); margin-bottom: var(--s-2);
+}
+.flow-card h5 { font-size: 15px; }
+.flow-card p { font-size: 13px; color: var(--text-3); }
+.flow-card:not(:last-child)::after {
+  content: "→"; position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+  color: var(--text-3); font-size: 14px; z-index: 2;
+}
+
+/* ---------- Feature blocks ---------- */
+.feature-block {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-8); align-items: center;
+  padding: var(--s-7); margin-bottom: var(--s-5);
+}
+.feature-block:nth-child(even) .feature-block__media { order: -1; }
+.feature-block h4 { margin-bottom: var(--s-2); }
+.feature-block p { font-size: 14.5px; }
+.feature-block__media {
+  aspect-ratio: 16 / 10; border-radius: var(--r-lg); position: relative; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.feature-block__media svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fm-1 { background: linear-gradient(140deg, #12213C, #0A101E), repeating-linear-gradient(90deg, rgba(110,168,254,.06) 0 4px, transparent 4px 18px); }
+.fm-2 { background: radial-gradient(70% 80% at 60% 30%, rgba(47,123,245,.22), transparent 60%), linear-gradient(160deg, #101C33, #080D18); }
+
+/* ---------- Compatible / related ---------- */
+.mini-card { display: flex; align-items: center; gap: var(--s-4); padding: var(--s-5); }
+.mini-card b { display: block; font-family: var(--font-head); font-size: 15px; color: var(--text-1); }
+.mini-card span { font-size: 13px; color: var(--text-3); }
+.mini-card .btn { margin-left: auto; flex: none; }
+
+/* ---------- Downloads ---------- */
+.pdl-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-4); }
+
+/* ---------- Sticky mobile actions ---------- */
+.mobile-actions {
+  display: none; position: fixed; bottom: 0; inset-inline: 0; z-index: 90;
+  padding: 12px var(--s-5) calc(12px + env(safe-area-inset-bottom));
+  background: var(--surface-glass); backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-top: 1px solid var(--border-glass);
+  gap: var(--s-3);
+}
+.mobile-actions .btn { flex: 1; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1279px) {
+  .benefit-grid { grid-template-columns: repeat(2, 1fr); }
+  .flow { grid-template-columns: repeat(2, 1fr); }
+  .flow-card:not(:last-child)::after { display: none; }
+}
+@media (max-width: 1023px) {
+  .phero__grid { grid-template-columns: 1fr; gap: var(--s-8); }
+  .phero__visual { max-width: 480px; }
+  .pdetail { grid-template-columns: 1fr; }
+  .psidebar { position: static; }
+  .psidebar__nav { display: none; }
+  .feature-block { grid-template-columns: 1fr; }
+  .feature-block:nth-child(even) .feature-block__media { order: 0; }
+}
+@media (max-width: 767px) {
+  .spec-grid, .pdl-grid, .benefit-grid, .flow { grid-template-columns: 1fr; }
+  .phero__actions .btn { flex: 1; min-width: 150px; }
+  .mobile-actions { display: flex; }
+  body { padding-bottom: 76px; }
+  .psidebar__utils { display: none; }
+}
