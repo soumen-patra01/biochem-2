@@ -1,0 +1,260 @@
+/* ==========================================================================
+   BIOCHEM TECHNOLOGIES — responsive.css
+   Comprehensive responsive overrides for all screen sizes.
+   Loaded last so these rules win over page-specific styles.
+   ========================================================================== */
+
+/* ─── Global containment ─────────────────────────────────────────────────── */
+html, body { overflow-x: hidden; }
+img, video, iframe { max-width: 100%; height: auto; }
+
+/* Prevent absolutely-positioned cards from leaking outside the viewport */
+.hero { overflow: hidden; }
+.about__visual { overflow: visible; } /* cards intentionally bleed; fine on desktop */
+
+/* Phone numbers and long strings wrap instead of breaking layout */
+.contact-card a,
+.contact-card span.val,
+.contact-card div { word-break: break-word; overflow-wrap: anywhere; }
+
+/* Ensure all grid/flex children don't exceed their container */
+.eco-card, .pcard, .product-card, .cert-card, .dl-card,
+.benefit-card, .spec-item, .flow-card, .mini-card { min-width: 0; }
+
+/* Tables always scroll horizontally instead of breaking layout */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* ─── 1280px — large laptops ─────────────────────────────────────────────── */
+@media (max-width: 1280px) {
+  :root { --container: 1120px; }
+}
+
+/* ─── 1024px — tablets landscape / small laptops ─────────────────────────── */
+@media (max-width: 1024px) {
+  /* Hero floats: tuck inside bounds, not hanging off edges */
+  .hero__float--1 { left: 1%; top: 4%; }
+  .hero__float--2 { right: 1%; bottom: 18%; }
+  .hero__float { max-width: 200px; padding: 12px 16px; }
+  .hero__float strong { font-size: 15px; }
+  .hero__float span  { font-size: 11px; }
+
+  /* About cards: keep inside the photo */
+  .about__card--1 { right: 2%; top: 5%; }
+  .about__card--2 { left: 2%; bottom: 8%; }
+
+  /* Stats / mfg band */
+  .mfg__band { padding: var(--s-8); }
+}
+
+/* ─── 768px — tablets portrait ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Container breathing room */
+  .container { padding-inline: var(--s-5); } /* 20px each side */
+
+  /* Section vertical spacing */
+  .section { padding-block: var(--s-10); } /* 64px */
+
+  /* Typography – slightly tighter on tablets */
+  h1 { font-size: clamp(32px, 6vw, 48px); }
+  h2 { font-size: clamp(26px, 4.5vw, 40px); }
+
+  /* Hero floats hidden so they don't clip oddly on portrait tablets */
+  .hero__float--1,
+  .hero__float--2,
+  .hero__float--3 { display: none; }
+
+  /* About floating cards: hide when visual is full-width */
+  .about__card { display: none; }
+
+  /* Manufacturing stat band: 2 col */
+  .mfg__band { grid-template-columns: repeat(2, 1fr); padding: var(--s-6); gap: var(--s-6); }
+
+  /* Why rows */
+  .why-row { grid-template-columns: 44px 1fr; gap: var(--s-4); padding: var(--s-5) 0; }
+  .why-row > p { grid-column: 2; }
+
+  /* Testimonial cards wider on tablet */
+  .testi-track { grid-auto-columns: min(420px, 90%); }
+
+  /* Footer columns: 2-col with brand full-width */
+  .footer__grid { grid-template-columns: 1fr 1fr; gap: var(--s-6); }
+  .footer__brand { grid-column: 1 / -1; }
+
+  /* CTA band */
+  .cta-band { padding: var(--s-9) var(--s-6); }
+}
+
+/* ─── 640px — large phones / small tablets ───────────────────────────────── */
+@media (max-width: 640px) {
+  /* Better hero action buttons */
+  .hero__actions .btn { flex: 1 1 calc(50% - var(--s-4)); min-width: 0; }
+
+  /* Eco cards: single column */
+  .eco-grid { grid-template-columns: 1fr; }
+  .eco-card,
+  .eco-card:nth-child(4),
+  .eco-card:nth-child(5) { grid-column: span 1; }
+
+  /* Industry scroll cards slightly wider */
+  .industry-track { grid-auto-columns: 88%; }
+
+  /* Spec items: label left, value right (already flex, just ensure they wrap) */
+  .spec-item { flex-wrap: wrap; gap: var(--s-1); }
+  .spec-item dd { text-align: left; }
+
+  /* Catalogue strip: 2 per row */
+  .cat-strip { grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+  .cat-tile h5 { font-size: 13.5px; }
+
+  /* Benefit grid on product page: 2 cols */
+  .benefit-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ─── 480px — standard mobile phones ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  /* Typography minimums: prevent h1 overflowing a 375px screen */
+  h1 { font-size: clamp(26px, 7.5vw, 36px); line-height: 1.1; letter-spacing: -0.02em; }
+  h2 { font-size: clamp(22px, 6vw, 30px); }
+  h3 { font-size: clamp(18px, 5vw, 24px); }
+  h4 { font-size: 17px; }
+  h5 { font-size: 15px; }
+  .subtitle { font-size: 15px; line-height: 1.6; }
+
+  /* Section spacing */
+  .section { padding-block: var(--s-9); } /* 48px */
+  .section-head { margin-bottom: var(--s-7); }
+  .container { padding-inline: var(--s-4); } /* 16px */
+
+  /* Nav bar */
+  .nav__inner { padding-inline: var(--s-4); gap: var(--s-4); }
+  .brand__name { font-size: 14.5px; }
+
+  /* Hero: stack CTA buttons full width */
+  .hero__actions { flex-direction: column; }
+  .hero__actions .btn { width: 100%; justify-content: center; }
+  .hero { padding-top: calc(var(--nav-h) + var(--s-6)); padding-bottom: var(--s-8); }
+
+  /* Hero visual: tighter on small phones */
+  .hero__visual { max-width: 100%; aspect-ratio: 1 / 1; }
+
+  /* Stat values */
+  .stat__value { font-size: clamp(28px, 8vw, 44px); }
+
+  /* Manufacturing band: single column on small phones */
+  .mfg__band { grid-template-columns: 1fr; padding: var(--s-5); gap: var(--s-5); }
+
+  /* Timeline: already 1fr; improve spacing */
+  .timeline { gap: var(--s-7); }
+  .timeline__step { padding-top: var(--s-9); }
+
+  /* Why rows */
+  .why-row { grid-template-columns: 36px 1fr; gap: var(--s-3); padding: var(--s-4) 0; }
+  .why-row__num { font-size: 13px; }
+
+  /* Contact cards: tighter padding */
+  .contact-card { padding: var(--s-4); align-items: flex-start; }
+  .contact-card > div { flex-direction: column; }
+  .contact__hours { flex-direction: column; gap: 2px; font-size: 13px; }
+
+  /* Contact grid spacing */
+  .contact__grid { gap: var(--s-7); }
+
+  /* About section: show stats in 1-col */
+  .about__grid { gap: var(--s-7); }
+
+  /* RnD section */
+  .rnd__grid { gap: var(--s-7); }
+
+  /* Testimonials */
+  .testi-track { grid-auto-columns: 92%; }
+  .testi-card { padding: var(--s-5); }
+  .testi-card__quote { font-size: 15px; }
+
+  /* Product cards on homepage */
+  .product-card { padding: var(--s-5); }
+  .product-card h5 { font-size: 16px; }
+
+  /* Footer: single column on small phones */
+  .footer__grid { grid-template-columns: 1fr; gap: var(--s-5); }
+  .footer__brand { grid-column: auto; }
+  .footer__news { flex-direction: column; gap: var(--s-2); }
+  .footer__news .input { width: 100%; }
+  .footer__news .btn { width: 100%; justify-content: center; }
+  .footer__bottom { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+  .footer__legal { gap: var(--s-4); flex-wrap: wrap; }
+  .footer { padding-top: var(--s-9); }
+
+  /* CTA band */
+  .cta-band { padding: var(--s-8) var(--s-4); border-radius: var(--r-xl); }
+  .cta-band__actions { flex-direction: column; align-items: stretch; }
+  .cta-band__actions .btn { width: 100%; justify-content: center; }
+
+  /* Modals */
+  .overlay-layer { padding: var(--s-3); }
+  .modal { padding: var(--s-5); border-radius: var(--r-xl); }
+
+  /* Catalogue page */
+  .cat-strip { grid-template-columns: 1fr 1fr; gap: var(--s-2); }
+  .cat-tile { padding: var(--s-4); }
+  .cat-tile h5 { font-size: 13px; }
+  .cat-hero__stats { gap: var(--s-5); }
+  .cat-hero__stats .stat__value { font-size: 26px; }
+  .pgrid { grid-template-columns: 1fr; }
+
+  /* Product detail page */
+  .phero h1 { font-size: clamp(24px, 7vw, 36px); }
+  .phero__grid { gap: var(--s-6); }
+  .phero__visual { max-width: 100%; aspect-ratio: 1; }
+  .phero__actions { flex-direction: column; }
+  .phero__actions .btn { width: 100%; justify-content: center; }
+  .benefit-grid { grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+  .benefit-card { padding: var(--s-4); }
+  .benefit-card h5 { font-size: 13px; }
+  .benefit-card p { font-size: 12px; }
+  .spec-grid { grid-template-columns: 1fr; }
+  .spec-item { flex-direction: row; justify-content: space-between; }
+  .flow { grid-template-columns: 1fr; gap: var(--s-3); }
+  .flow-card:not(:last-child)::after { display: none; }
+  .pdetail { padding-block: var(--s-9); }
+  .pdetail__main > section { margin-bottom: var(--s-9); }
+
+  /* Compare bar */
+  .compare-bar { width: calc(100% - var(--s-5)); padding: 10px 14px; border-radius: var(--r-xl); }
+
+  /* Chips: allow wrap on small screens */
+  .cat-toolbar { gap: var(--s-3); }
+  .cat-toolbar__chips { gap: var(--s-2); }
+  .chip { height: 32px; padding-inline: 12px; font-size: 13px; }
+
+  /* Mega menu not applicable on mobile, but ensure it's not breaking layout */
+  .mega { display: none !important; }
+}
+
+/* ─── 375px — small phones (iPhone SE etc.) ──────────────────────────────── */
+@media (max-width: 375px) {
+  h1 { font-size: clamp(22px, 7.5vw, 28px); }
+  h2 { font-size: clamp(20px, 6.5vw, 26px); }
+  .container { padding-inline: 14px; }
+  .brand__name { font-size: 13.5px; }
+  .brand__name small { letter-spacing: 0.22em; }
+  .hero__actions .btn { font-size: 14px; height: 44px; }
+  .footer__grid { gap: var(--s-4); }
+  .cat-strip { grid-template-columns: 1fr 1fr; gap: var(--s-2); }
+  .cat-tile { padding: var(--s-3); }
+  .pcard { padding: var(--s-4); }
+  .benefit-grid { grid-template-columns: 1fr; }
+  .modal { padding: var(--s-4); }
+  .mfg__band { padding: var(--s-4); }
+  .testi-card { padding: var(--s-4); }
+}
+
+/* ─── Print ───────────────────────────────────────────────────────────────── */
+@media print {
+  .nav, .mobile-menu, .scroll-hint, .particle,
+  .hero__float, .bg-mesh, .bg-hex, .bg-noise,
+  .filters-fab, .compare-bar, .mobile-actions,
+  .footer__news, .cta-band { display: none !important; }
+  body { background: #fff; color: #000; }
+  .section { padding-block: 24px; }
+  .container { padding-inline: 20px; }
+}
