@@ -719,23 +719,70 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
     </div>
-    <form data-demo-form class="grid" style="gap:var(--s-4)">
+    <!-- ─── SETUP: Sign up free at formspree.io, create a form, then replace
+         YOUR_FORM_ID below with your actual form ID (e.g. xyzabcde) ─── -->
+    <form id="sample-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="grid" style="gap:var(--s-4)">
+      <input type="hidden" name="_subject" value="New Sample / Enquiry — Biochem Technologies">
+      <input type="hidden" name="_next" value="">
       <div class="grid grid-2" style="gap:var(--s-4)">
-        <div class="field"><label class="field__label" for="ms-company">Company Name <span class="req">*</span></label><input class="input" id="ms-company" required placeholder="Your mill / processing house"></div>
-        <div class="field"><label class="field__label" for="ms-person">Contact Person <span class="req">*</span></label><input class="input" id="ms-person" required placeholder="Full name"></div>
+        <div class="field"><label class="field__label" for="ms-company">Company Name <span class="req">*</span></label><input class="input" id="ms-company" name="company" required placeholder="Your mill / processing house"></div>
+        <div class="field"><label class="field__label" for="ms-person">Contact Person <span class="req">*</span></label><input class="input" id="ms-person" name="name" required placeholder="Full name"></div>
       </div>
       <div class="grid grid-2" style="gap:var(--s-4)">
-        <div class="field"><label class="field__label" for="ms-email">Email <span class="req">*</span></label><input class="input" id="ms-email" type="email" required placeholder="name@company.com"></div>
-        <div class="field"><label class="field__label" for="ms-phone">Phone</label><input class="input" id="ms-phone" type="tel" placeholder="+91"></div>
+        <div class="field"><label class="field__label" for="ms-email">Email <span class="req">*</span></label><input class="input" id="ms-email" name="email" type="email" required placeholder="name@company.com"></div>
+        <div class="field"><label class="field__label" for="ms-phone">Phone</label><input class="input" id="ms-phone" name="phone" type="tel" placeholder="+91"></div>
       </div>
-      <div class="field"><label class="field__label" for="ms-msg">Requirement</label><textarea class="textarea" id="ms-msg" placeholder="Product, application, fabric type, machine…"></textarea></div>
-      <button class="btn btn--primary btn--lg" type="submit">Submit Request</button>
+      <div class="field"><label class="field__label" for="ms-msg">Requirement</label><textarea class="textarea" id="ms-msg" name="requirement" placeholder="Product, application, fabric type, machine…"></textarea></div>
+      <!-- Success state (hidden by default) -->
+      <div id="form-success" style="display:none;padding:var(--s-5);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);border-radius:var(--r-md);text-align:center;">
+        <svg style="width:40px;height:40px;color:var(--success);margin:0 auto var(--s-3)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+        <p style="color:var(--success);font-weight:600;margin-bottom:4px">Request sent successfully!</p>
+        <p class="small" style="color:var(--text-2)">Our team will contact you within one business day.</p>
+      </div>
+      <!-- Error state (hidden by default) -->
+      <div id="form-error" style="display:none;padding:var(--s-4);background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);border-radius:var(--r-md);">
+        <p class="small" style="color:var(--error)">Something went wrong. Please email us directly at <a href="mailto:info@biochemtechnologies.com" style="color:var(--error);text-decoration:underline">info@biochemtechnologies.com</a></p>
+      </div>
+      <button class="btn btn--primary btn--lg" type="submit" id="form-submit-btn">Submit Request</button>
     </form>
   </div>
 </div>
 
 <script src="assets/js/main.js" defer></script>
 <script src="assets/js/home.js" defer></script>
+<script>
+(function () {
+  var form = document.getElementById('sample-form');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = document.getElementById('form-submit-btn');
+    var successEl = document.getElementById('form-success');
+    var errorEl = document.getElementById('form-error');
+    // Loading state
+    btn.disabled = true;
+    btn.innerHTML = '<span class="btn__spinner"></span> Sending…';
+    errorEl.style.display = 'none';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function (res) {
+      if (res.ok) {
+        form.querySelectorAll('input, textarea').forEach(function (el) { el.value = ''; });
+        btn.style.display = 'none';
+        successEl.style.display = 'block';
+      } else {
+        throw new Error('server error');
+      }
+    }).catch(function () {
+      btn.disabled = false;
+      btn.innerHTML = 'Submit Request';
+      errorEl.style.display = 'block';
+    });
+  });
+})();
+</script>
 
 <!-- Floating WhatsApp button -->
 <a class="wa-fab" href="https://wa.me/918777411817" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
