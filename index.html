@@ -608,28 +608,34 @@
       </div>
     </div>
     <div class="reveal reveal-d1">
-      <div class="contact__map" role="img" aria-label="Stylised map of India showing Biochem supply locations">
-        <svg viewBox="0 0 480 360" fill="none" aria-hidden="true">
-          <g fill="#6EA8FE" fill-opacity=".18">
-            <circle cx="150" cy="80" r="3"/><circle cx="190" cy="70" r="3"/><circle cx="230" cy="80" r="3"/><circle cx="270" cy="95" r="3"/>
-            <circle cx="140" cy="120" r="3"/><circle cx="180" cy="115" r="3"/><circle cx="220" cy="120" r="3"/><circle cx="260" cy="130" r="3"/><circle cx="300" cy="125" r="3"/>
-            <circle cx="150" cy="160" r="3"/><circle cx="190" cy="160" r="3"/><circle cx="230" cy="165" r="3"/><circle cx="270" cy="170" r="3"/><circle cx="310" cy="160" r="3"/>
-            <circle cx="180" cy="205" r="3"/><circle cx="220" cy="210" r="3"/><circle cx="260" cy="210" r="3"/><circle cx="300" cy="200" r="3"/>
-            <circle cx="210" cy="250" r="3"/><circle cx="250" cy="255" r="3"/><circle cx="285" cy="245" r="3"/>
-            <circle cx="235" cy="295" r="3"/><circle cx="265" cy="290" r="3"/><circle cx="250" cy="325" r="3"/>
-          </g>
-          <g>
-            <circle class="map-pin" cx="160" cy="140" r="10" fill="#37C8F5" opacity=".5"/>
-            <circle cx="160" cy="140" r="5" fill="#37C8F5"/>
-
-            <circle class="map-pin" cx="300" cy="140" r="10" fill="#6EA8FE" opacity=".5"/>
-            <circle cx="300" cy="140" r="5" fill="#6EA8FE"/>
-          </g>
-          <text x="172" y="132" fill="#A9B6CC" font-size="11" font-family="Inter, sans-serif">Kolkata, West Bengal</text>
-
-          <text x="308" y="136" fill="#A9B6CC" font-size="11" font-family="Inter, sans-serif">Ghaziabad, UP</text>
-        </svg>
+      <!-- Map tabs -->
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <button class="map-tab-btn btn btn--sm btn--primary" data-map="kolkata" onclick="switchMap('kolkata',this)">📍 Kolkata</button>
+        <button class="map-tab-btn btn btn--sm btn--secondary" data-map="ghaziabad" onclick="switchMap('ghaziabad',this)">📍 Ghaziabad</button>
       </div>
+      <div class="contact__map" style="border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--border-glass);aspect-ratio:16/12;position:relative;">
+        <iframe id="map-kolkata"
+          src="https://maps.google.com/maps?q=Madhyamgram+Kolkata+West+Bengal+India&output=embed&z=13"
+          width="100%" height="100%" style="border:0;position:absolute;inset:0;width:100%;height:100%;"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Biochem Technologies Kolkata Office"></iframe>
+        <iframe id="map-ghaziabad"
+          src="https://maps.google.com/maps?q=Shalimar+Garden+Extension+1+Ghaziabad+Uttar+Pradesh+India&output=embed&z=13"
+          width="100%" height="100%" style="border:0;position:absolute;inset:0;width:100%;height:100%;display:none;"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Biochem Technologies Ghaziabad Office"></iframe>
+      </div>
+      <script>
+        function switchMap(office, btn) {
+          document.getElementById('map-kolkata').style.display = office === 'kolkata' ? 'block' : 'none';
+          document.getElementById('map-ghaziabad').style.display = office === 'ghaziabad' ? 'block' : 'none';
+          document.querySelectorAll('.map-tab-btn').forEach(function(b) {
+            b.className = b.dataset.map === office
+              ? 'map-tab-btn btn btn--sm btn--primary'
+              : 'map-tab-btn btn btn--sm btn--secondary';
+          });
+        }
+      </script>
     </div>
   </div>
 </section>
